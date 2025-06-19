@@ -1,6 +1,7 @@
 import { Image } from "expo-image";
+import { Link } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View, Button } from "react-native";
 
 const index = () => {
   const [products, setProducts] = useState([]);
@@ -22,7 +23,10 @@ const index = () => {
           <View style={styles.itemWrapper} key={item.id}>
             <Image style={styles.image} source={item.image} contentFit="contain"/>
             <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.description}>{item.description}</Text>
+            <Text numberOfLines={3} style={styles.description}>{item.description}</Text>
+            <Link href={'/products/${item.id'} asChild>
+              <Button title='go to details' />
+            </Link>
           </View>
         )}
       />
@@ -39,7 +43,7 @@ const styles = StyleSheet.create({
   itemWrapper: {
     borderRadius: 10,
     marginBottom: 32,
-    height: 380,
+    height: 400,
     backgroundColor: "white",
     elevation: 20,
     shadowColor: "black",
@@ -55,4 +59,7 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     marginVertical: 10,
   },
+  description:{
+    marginBottom: 10,
+  }
 });
