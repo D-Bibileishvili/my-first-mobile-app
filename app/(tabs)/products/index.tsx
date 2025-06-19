@@ -24,7 +24,7 @@ const index = () => {
             <Image style={styles.image} source={item.image} contentFit="contain"/>
             <Text style={styles.title}>{item.title}</Text>
             <Text numberOfLines={3} style={styles.description}>{item.description}</Text>
-            <Link href={'/products/${item.id'} asChild>
+            <Link href={`/products/${item.id}`} asChild>
               <Button title='go to details' />
             </Link>
           </View>
