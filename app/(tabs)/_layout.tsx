@@ -14,12 +14,14 @@ const _layout = () => {
       }}
     >
       <Tabs.Screen
-        name="products"
+        name="index"
         options={{
-          headerShown: false,
+          headerShown: true,
           tabBarIcon: ({ color }) => (
             <Entypo name="shop" size={24} color={color} />
           ),
+          tabBarLabel: 'products',
+          headerTitle: 'Products'
         }}
       />
       
