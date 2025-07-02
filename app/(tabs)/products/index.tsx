@@ -1,9 +1,10 @@
 import { Image } from "expo-image";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, View, Button } from "react-native";
+import { Button, FlatList, StyleSheet, Text, View } from "react-native";
 
 const index = () => {
+  const router = useRouter();
   const [products, setProducts] = useState([]);
   const fetchProducts = async () => {
     const response = await fetch("https://fakestoreapi.com/products");
@@ -14,20 +15,34 @@ const index = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  const handleGoDetails = (id) => {
+    router.push(`/products/${id}`);
+  };
+
   return (
     <>
       <FlatList
-       contentContainerStyle={styles.flatslist}
+        contentContainerStyle={styles.flatslist}
         data={products}
         renderItem={({ item }) => (
-          <View style={styles.itemWrapper} key={item.id}>
-            <Image style={styles.image} source={item.image} contentFit="contain"/>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text numberOfLines={3} style={styles.description}>{item.description}</Text>
-            <Link href={`/products/${item.id}`} asChild>
-              <Button title='go to details' />
-            </Link>
-          </View>
+          <Link href={`/products/${item.id}`} style={styles.itemWrapper}>
+            <View key={item.id}>
+              <Image
+                style={styles.image}
+                source={item.image}
+                contentFit="contain"
+              />
+              <Text style={styles.title}>{item.title}</Text>
+              <Text numberOfLines={3} style={styles.description}>
+                {item.description}
+              </Text>
+              <Button
+                title="go to details"
+                onPress={() => handleGoDetails(item.id)}
+              />
+            </View>
+          </Link>
         )}
       />
     </>
@@ -59,7 +74,7 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     marginVertical: 10,
   },
-  description:{
+  description: {
     marginBottom: 10,
-  }
+  },
 });
