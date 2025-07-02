@@ -11,15 +11,33 @@ import {
   View,
 } from "react-native";
 
+import * as Yup from "yup";
+
+export interface LoginFormValues {
+  username: string;
+  password: string;
+}
+
+export const loginSchema: Yup.Schema<LoginFormValues> = Yup.object({
+  username: Yup.string()
+    .required("Username is required")
+    .min(3, "Username must be at least 3 characters"),
+
+  password: Yup.string()
+    .required("Password is required")
+    .min(6, "Password must be at least 6 characters"),
+});
+
 const index = () => {
   const router = useRouter();
   const handleGoRegister = () => router.push("/register");
 
-  const [userInfo, setUserInfo] = useState({
+  const [userInfo, setUserInfo] = useState<LoginFormValues>({
     username: "johnd",
     password: "m38rmF$",
   });
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [error, setError] = useState("");
 
   const checkUser = async () => {
     const result = await AsyncStorage.getItem("user-token");
@@ -33,15 +51,31 @@ const index = () => {
   }, []);
 
   const handleSubmit = async () => {
-    const response = await fetch("https://fakestoreapi.com/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userInfo),
-    });
-    const result = await response.json();
+    try {
+      await loginSchema.validate(userInfo);
+      setError("");
 
-    await AsyncStorage.setItem("user-token", JSON.stringify(result.token));
-    router.replace("/(tabs)");
+      const response = await fetch("https://fakestoreapi.com/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userInfo),
+      });
+
+      const result = await response.json();
+
+      if (result.token) {
+        await AsyncStorage.setItem("user-token", JSON.stringify(result.token));
+        router.replace("/(tabs)");
+      } else {
+        setError("Login failed. Please check your credentials.");
+      }
+    } catch (err) {
+      if (err instanceof Yup.ValidationError) {
+        setError(err.message);
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+    }
   };
 
   return (
@@ -56,7 +90,7 @@ const index = () => {
         style={styles.input}
         placeholder="password"
         secureTextEntry={!passwordVisible}
-        onChangeText={(text) => setUserInfo({ ...userInfo, passwrod: text })}
+        onChangeText={(text) => setUserInfo({ ...userInfo, password: text })}
       />
       <TouchableOpacity
         activeOpacity={0.2}
@@ -64,6 +98,9 @@ const index = () => {
       >
         <Text>see password</Text>
       </TouchableOpacity>
+      {error !== "" && (
+        <Text style={{ color: "red", marginTop: 10 }}>{error}</Text>
+      )}
       <Pressable style={styles.submit} onPressIn={handleSubmit}>
         <Text style={styles.submitText}>Submit</Text>
       </Pressable>
