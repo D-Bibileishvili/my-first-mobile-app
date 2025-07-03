@@ -1,6 +1,14 @@
-import React, { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
-import { View, Text, ActivityIndicator, StyleSheet, ScrollView, Image } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  ActivityIndicator,
+  Button,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+} from "react-native";
+import { addToCart } from "../utils/cartStorage";
 
 export default function ProductDetail() {
   const { id } = useLocalSearchParams();
@@ -20,7 +28,7 @@ export default function ProductDetail() {
 
         const response = await fetch(url);
         const text = await response.text();
-        console.log("Raw response text:", text.slice(0, 100)); 
+        console.log("Raw response text:", text.slice(0, 100));
         if (!text || text.trim() === "") {
           throw new Error("API returned empty response");
         }
@@ -37,20 +45,38 @@ export default function ProductDetail() {
     fetchProduct();
   }, [id]);
 
+  const handleAddToCart = async () => {
+    try {
+      await addToCart(product);
+      Alert.alert("Added to cart", `${product.title} was added to your cart.`);
+    } catch (err) {
+      Alert.alert("Error", "Could not add to cart.");
+    }
+  };
+
   if (loading) {
     return <ActivityIndicator style={{ flex: 1 }} size="large" color="gray" />;
   }
 
   if (!product) {
-    return <Text style={{ padding: 20 }}>⚠️ Product not found or failed to load.</Text>;
+    return (
+      <Text style={{ padding: 20 }}>
+        ⚠️ Product not found or failed to load.
+      </Text>
+    );
   }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Image source={{ uri: product.image }} style={styles.image} resizeMode="contain" />
+      <Image
+        source={{ uri: product.image }}
+        style={styles.image}
+        resizeMode="contain"
+      />
       <Text style={styles.title}>{product.title}</Text>
       <Text style={styles.price}>${product.price}</Text>
       <Text style={styles.description}>{product.description}</Text>
+      <Button title="Add to Cart" onPress={handleAddToCart} />
     </ScrollView>
   );
 }

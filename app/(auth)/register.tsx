@@ -131,7 +131,7 @@ const Register = () => {
             {errors.confirmPassword && (
               <Text style={styles.error}>{errors.confirmPassword.message}</Text>
             )}
-            
+
             <Button title="Register" onPress={handleSubmit(onSubmit)} />
 
             <View style={styles.button}>
