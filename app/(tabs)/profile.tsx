@@ -101,11 +101,10 @@ export default function ProfilePage() {
         <Text style={styles.label}>Address:</Text> {user.address.number}{" "}
         {user.address.street}, {user.address.city}, {user.address.zipcode}
       </Text>
-      <View style={styles.button} >
+      <View style={styles.button}>
         <Button title="Log Out" onPress={handleLogout} />
       </View>
     </View>
-  
   );
 }
 
@@ -113,7 +112,7 @@ const styles = StyleSheet.create({
   profileWrap: {
     flex: 1,
     padding: 20,
-    backgroundColor: 'lightgray',
+    backgroundColor: "lightgray",
     alignItems: "flex-start",
     justifyContent: "center",
   },
@@ -122,7 +121,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "black",
     marginBottom: 25,
-    alignSelf: "center", 
+    alignSelf: "center",
   },
   detailText: {
     fontSize: 18,
@@ -147,5 +146,5 @@ const styles = StyleSheet.create({
   },
   button: {
     alignSelf: "center",
-  }
+  },
 });
