@@ -147,8 +147,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   leftSide: {
-    flexDirection: 'row',
-     alignItems: "center",
+    flexDirection: "row",
+    alignItems: "center",
   },
   ratingText: {
     fontSize: 14,
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
   free: {
-    color: 'green'
+    color: "green",
   },
   descWrapper: {
     position: "relative",

@@ -11,9 +11,12 @@ const _layout = () => {
         name="(tabs)"
         options={{ headerShown: false, headerTitle: "main" }}
       />
-      <Stack.Screen name="products"  options={{headerTitle: 'Product details'}}/>
+      <Stack.Screen
+        name="products"
+        options={{ headerTitle: "Product details" }}
+      />
     </Stack>
   );
-}
+};
 
-export default _layout
+export default _layout;

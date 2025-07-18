@@ -1,50 +1,94 @@
-# Welcome to your Expo app 👋
+# 🛒 Expo E-Commerce App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is a simple mobile e-commerce application built with **React Native + Expo** using the **expo-router** file-based routing system. It supports product browsing, a shopping cart with quantity updates, persistent storage using `AsyncStorage`, and a basic user profile and authentication flow.
 
-## Get started
+---
 
-1. Install dependencies
+## 📂 Project Structure
+
+app/
+├── (auth)/ # Login and Register pages
+│ ├── \_layout.tsx
+│ ├── index.tsx
+│ └── register.tsx
+├── (tabs)/ # Tab navigation pages
+│ ├── \_layout.tsx
+│ ├── cart.tsx
+│ ├── index.tsx
+│ └── profile.tsx
+├── products/ # Product list and detail pages
+│ ├── \_layout.tsx
+│ └── [id].tsx
+├── utils/ # Local storage and helpers
+│ └── cartStorage.ts
+├── components/ # Reusable components (e.g., Navbar, Input)
+│ ├── flatlist.tsx
+│ ├── input.tsx
+│ └── scrollview.tsx
+├── assets/ # Fonts and images
+│ ├── fonts/
+│ └── images/
+
+---
+
+## ⚙️ Technologies Used
+
+- [Expo](https://expo.dev/)
+- [React Native](https://reactnative.dev/)
+- [expo-router](https://expo.github.io/router/)
+- [AsyncStorage](https://react-native-async-storage.github.io/async-storage/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [react-hook-form](https://react-hook-form.com/)
+- [yup](https://github.com/jquense/yup)
+
+---
+
+## 💡 Features
+
+- ✅ Product listing from Fake Store API
+- ✅ Product detail page with dynamic routing using `[id].tsx`
+- ✅ Add to Cart functionality
+- ✅ Cart item quantity update (+ / -)
+- ✅ Cart data persistence with `AsyncStorage`
+- ✅ Profile page with stored user data
+- ✅ Authentication (Register / Login)
+- ✅ Coupon code input (UI only for now)
+- ✅ Order summary and buy button UI
+
+---
+
+## 🛠 Setup Instructions
+
+1. **Clone the repository**
 
    ```bash
+   git clone https://github.com/your-username/your-repo-name.git
+   cd your-repo-name
+
+   ```
+
+2. **Install dependencies**
    npm install
-   ```
 
-2. Start the app
-
-   ```bash
+3. **Start the development server**
+   bash
+   Copy code
    npx expo start
-   ```
 
-In the output, you'll find options to open the app in a
+4. **(Optional) Clear local storage during testing**
+   ts
+   Copy code
+   await AsyncStorage.clear();
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+🧪 Development Notes
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- ✅ useRouter() and useLocalSearchParams() are used from expo-router for dynamic navigation and route parameters.
 
-## Get a fresh project
+- ✅ Forms (like login/register) use react-hook-form with yupResolver for validation.
 
-When you're ready, run:
+- ✅ The shopping cart page (tabs/cart.tsx) uses FlatList to render items and keeps the order summary fixed at the bottom.
 
-```bash
-npm run reset-project
-```
+- ✅ Styling is handled using StyleSheet.create().
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+🙋‍♂️ Author
+Davit Bibileishvili

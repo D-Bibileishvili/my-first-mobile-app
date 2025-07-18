@@ -36,10 +36,11 @@ const DATA = [
 
 export default function Index() {
   return (
-    <FlatList contentContainerStyle={styles.flatlist}
-    showsVerticalScrollIndicator={false}
+    <FlatList
+      contentContainerStyle={styles.flatlist}
+      showsVerticalScrollIndicator={false}
       data={DATA}
-      renderItem={({item}) => (
+      renderItem={({ item }) => (
         <TouchableOpacity key={item.id} style={styles.container}>
           <Image
             style={styles.image}

@@ -1,5 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import React, { useCallback, useEffect, useState } from "react";
+
 import {
   Button,
   FlatList,
@@ -25,13 +27,15 @@ const Cart = () => {
   const [subtotal, setSubtotal] = useState(0);
   const [coupon, setCoupon] = useState("");
 
-  useEffect(() => {
-    const loadCart = async () => {
-      const data = await AsyncStorage.getItem("cart");
-      if (data) setCartItems(JSON.parse(data));
-    };
-    loadCart();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      const loadCart = async () => {
+        const data = await AsyncStorage.getItem("cart");
+        if (data) setCartItems(JSON.parse(data));
+      };
+      loadCart();
+    }, [])
+  );
 
   useEffect(() => {
     AsyncStorage.setItem("cart", JSON.stringify(cartItems));
@@ -182,9 +186,6 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: "#ddd",
     backgroundColor: "#f9f9f9",
-    position: "absolute",
-    bottom: 0,
-    width: "100%",
   },
   summaryTitle: {
     fontSize: 20,
