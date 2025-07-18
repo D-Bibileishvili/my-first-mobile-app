@@ -4,33 +4,6 @@ This is a simple mobile e-commerce application built with **React Native + Expo*
 
 ---
 
-## 📂 Project Structure
-
-app/
-├── (auth)/ # Login and Register pages
-│ ├── \_layout.tsx
-│ ├── index.tsx
-│ └── register.tsx
-├── (tabs)/ # Tab navigation pages
-│ ├── \_layout.tsx
-│ ├── cart.tsx
-│ ├── index.tsx
-│ └── profile.tsx
-├── products/ # Product list and detail pages
-│ ├── \_layout.tsx
-│ └── [id].tsx
-├── utils/ # Local storage and helpers
-│ └── cartStorage.ts
-├── components/ # Reusable components (e.g., Navbar, Input)
-│ ├── flatlist.tsx
-│ ├── input.tsx
-│ └── scrollview.tsx
-├── assets/ # Fonts and images
-│ ├── fonts/
-│ └── images/
-
----
-
 ## ⚙️ Technologies Used
 
 - [Expo](https://expo.dev/)
